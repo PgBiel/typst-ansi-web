@@ -1,6 +1,6 @@
 [package]
 name = "typst-ansi-web"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["PgBiel <https://github.com/PgBiel>"]
 
@@ -10,5 +10,5 @@ authors = ["PgBiel <https://github.com/PgBiel>"]
 crate-type = ["cdylib"]
 
 [dependencies]
-typst-ansi-hl = "0.2.0"
+typst-ansi-hl = "0.4.0"
 wasm-bindgen = "0.2.100"
