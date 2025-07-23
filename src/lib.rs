@@ -1,5 +1,5 @@
-use wasm_bindgen::prelude::*;
 use typst_ansi_hl::Highlighter;
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn highlight(input: &str) -> String {
