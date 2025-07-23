@@ -5,6 +5,8 @@ You can **try it in your browser:** https://pgbiel.github.io/typst-ansi-web/
 
 This was inspired by the author's other project, [typst-ansi-gui](https://github.com/PgBiel/typst-ansi-gui) (a desktop application for the same purpose).
 
+![site screenshot](https://github.com/user-attachments/assets/d88769f9-f859-416e-8986-d3c8c6c680ea)
+
 ## Usage
 
 Open the website, paste your Typst code at the top, and press `Highlight`. Then, press `Copy` to copy the generated ANSI.
