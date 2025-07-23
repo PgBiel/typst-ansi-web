@@ -10,6 +10,8 @@
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [
           wasm-bindgen-cli
+          lld
+          shellcheck
         ];
       };
     }

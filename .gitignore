@@ -20,3 +20,6 @@ site/typst-ansi-gui*
 # Direnv
 .envrc
 .direnv
+
+# Build
+_site
