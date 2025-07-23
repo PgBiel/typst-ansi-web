@@ -12,4 +12,11 @@ target/
 # ignore wasm-bindgen build results
 site/typst-ansi-gui*
 
+# Editors
 .idea
+.vscode
+.zed
+
+# Direnv
+.envrc
+.direnv
