@@ -59,7 +59,7 @@ jobs:
 
       - name: 🛠️ Run wasm-bindgen for the website
         run: |
-          wasm-bindgen target/wasm32-unknown-unknown/release/typst-ansi-gui.wasm --out-dir _site --web
+          wasm-bindgen target/wasm32-unknown-unknown/release/typst-ansi-web.wasm --out-dir _site --web
           ls -ltah _site
 
       - name: 📤 Upload artifact
