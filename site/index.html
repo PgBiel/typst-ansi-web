@@ -21,25 +21,44 @@
             #sep button {
                 margin: 1rem 2rem;
             }
-            #js-warning {
+            #js-warning,
+            #status:not(.hidden) {
                 display: block;
                 text-align: center;
                 font-size: 2rem;
+            }
+            .hidden {
+                display: none;
             }
         </style>
     </head>
     <body>
         <h1>Typst ANSI Web</h1>
         <noscript id="js-warning"> (Please enable JavaScript) </noscript>
+        <div id="status">(Initializing...)</div>
         <textarea id="input" placeholder="Typst source"></textarea>
         <div id="sep">
             <button disabled id="highlight">Highlight</button>
             <button disabled id="copy">Copy</button>
         </div>
         <textarea id="res" placeholder="Highlighted output"></textarea>
-        <script>
-            document.getElementById("highlight").disabled = false;
-            document.getElementById("copy").disabled = false;
+        <script type="module">
+            import init, { highlight } from "./typst_ansi_web.js";
+
+            async function run() {
+                try {
+                    await init();
+                    document.getElementById("highlight").disabled = false;
+                    document.getElementById("copy").disabled = false;
+                    document.getElementById("status").className = "hidden";
+                } catch (err) {
+                    document.getElementById("status").innerText =
+                        "(Init failed, check console)";
+                    throw err;
+                }
+            }
+
+            run();
         </script>
     </body>
 </html>
