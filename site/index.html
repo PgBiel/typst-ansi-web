@@ -46,33 +46,77 @@
         <script type="module">
             import init, { highlight } from "./typst_ansi_web.js";
 
+            const status = document.getElementById("status");
+            const output = document.getElementById("output");
+            const copyButton = document.getElementById("copy");
+            function displayStatus(text) {
+                status.innerText = text;
+                status.className = "";
+            }
+
             async function run() {
-                const status = document.getElementById("status");
                 try {
                     await init();
 
                     const input = document.getElementById("input");
-                    const output = document.getElementById("output");
                     const highlightButton =
                         document.getElementById("highlight");
-                    const copyButton = document.getElementById("copy");
                     highlightButton.addEventListener("click", () => {
                         const inputSource = input.value;
                         if (inputSource != "") {
                             try {
                                 output.value = highlight(inputSource);
                             } catch (err) {
-                                status.innerText = "(Highlight failed)";
-                                status.className = "";
+                                displayStatus("(Highlight failed)");
                                 throw err;
                             }
                         }
                     });
                     highlightButton.disabled = false;
+
+                    copyButton.addEventListener("click", () => {
+                        copyOutput();
+                    });
                     copyButton.disabled = false;
                     status.className = "hidden";
                 } catch (err) {
-                    status.innerText = "(Init failed, check console)";
+                    displayStatus("(Init failed, check console)");
+                    throw err;
+                }
+            }
+
+            // Inspired by https://stackoverflow.com/a/30810322
+            function fallbackCopyOutput() {
+                output.focus();
+                output.select();
+
+                try {
+                    document.execCommand("copy");
+                } catch (err) {
+                    displayStatus("(Copy failed)");
+                    throw err;
+                }
+            }
+
+            let queuedCopyMessages = 0;
+            async function copyOutput() {
+                if (!navigator.clipboard) {
+                    fallbackCopyOutput();
+                    return;
+                }
+
+                try {
+                    navigator.clipboard.writeText(output.value);
+                    copyButton.innerText = "Copied!";
+                    queuedCopyMessages += 1;
+                    setTimeout(() => {
+                        queuedCopyMessages -= 1;
+                        if (queuedCopyMessages == 0) {
+                            copyButton.innerText = "Copy";
+                        }
+                    }, 2000);
+                } catch (err) {
+                    displayStatus("(Copy failed)");
                     throw err;
                 }
             }
